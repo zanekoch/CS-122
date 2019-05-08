@@ -5,11 +5,17 @@ from collections import defaultdict, Counter
 import sys
 import os
 import zipfile
+import argparse
 sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../.."))
 from CM122_starter_code.helpers import read_reads
 '''
-test change
+spectrum: every possible k-mer (string of length k)
+
+holding a graph is memory:
+-adjacency matrix: n x n matrix with value 1 when two nodes have a edge between them
+-adjacency list: for each node
+    -better when nodes do not have so many connections
 '''
 
 
@@ -54,7 +60,7 @@ def de_bruijn_reassemble(de_bruijn_graph):
     Traverses the DeBruijn Graph created by simple_de_bruijn and
     returns contigs that come from it.
     :param de_bruijn_graph: A De Bruijn Graph
-    :return: a list of the
+    :return: a list of the assembled strings
     """
 
     assembled_strings = []
@@ -82,9 +88,15 @@ def de_bruijn_reassemble(de_bruijn_graph):
 
 
 if __name__ == "__main__":
+
+    '''
     data_file = 'spectrum_A_1'
+    input_folder = './spectrumData'
+    '''
+    data_file = 'hw3all_A_3'
+    input_folder = './data'
+
     chr_number = 'chr_1'
-    input_folder = '../data/{}'.format(data_file)
     reads_fn = join(input_folder, 'reads_{}_{}.txt'.format(data_file, chr_number))
     reads = read_assembly_reads(reads_fn)
     db_graph = simple_de_bruijn(reads, 25)
